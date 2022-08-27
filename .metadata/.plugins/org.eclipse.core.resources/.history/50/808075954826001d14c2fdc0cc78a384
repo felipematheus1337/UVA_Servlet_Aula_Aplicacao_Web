@@ -1,0 +1,13 @@
+package entity;
+
+import java.util.GregorianCalendar;
+
+public class Produto {
+
+	private Integer codigo;
+	private String categoria;
+	private Boolean temLojaFisica;
+	private Integer quantidade;
+	private Float preco;
+	GregorianCalendar dataValidade;
+}
