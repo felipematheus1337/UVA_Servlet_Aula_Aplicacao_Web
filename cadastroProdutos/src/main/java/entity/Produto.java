@@ -31,6 +31,22 @@ public class Produto {
 		this.dataValidade = dataValidade;
 		this.descricao = descricao;
 	}
+	
+	
+
+
+
+	public Produto(String categoria, String nome, Boolean temLojaFisica, Integer quantidade, Float preco,
+			GregorianCalendar dataValidade, String descricao) {
+		super();
+		this.categoria = categoria;
+		this.nome = nome;
+		this.temLojaFisica = temLojaFisica;
+		this.quantidade = quantidade;
+		this.preco = preco;
+		this.dataValidade = dataValidade;
+		this.descricao = descricao;
+	}
 
 
 
