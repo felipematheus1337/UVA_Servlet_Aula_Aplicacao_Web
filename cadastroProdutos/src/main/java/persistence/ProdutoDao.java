@@ -1,6 +1,8 @@
 package persistence;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import entity.Produto;
 
@@ -32,6 +34,38 @@ public class ProdutoDao extends Dao{
 		}
 		
 		return SUCCESS;
+		
+	}
+	
+	public List<Produto> listarProdutos(String nome) throws Exception {
+		List<Produto> listaProdutos = new ArrayList<>();
+		
+		try {
+			open();
+			stmt = con.prepareStatement("select codigo, nome from produto where nome like ?");
+			stmt.setString(1,"%"+nome+"%");
+			rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Produto produto = new Produto();
+				produto.setCodigo(rs.getInt("codigo"));
+				produto.setNome(rs.getString("nome"));
+				listaProdutos.add(produto);
+			}
+			
+		} catch(SQLException e) {
+			System.out.println(e.getErrorCode());
+			System.out.println(e.getMessage());
+			
+		}
+		finally {
+			close();
+		}
+		
+		
+		
+		return listaProdutos;
+		
 		
 	}
 	
