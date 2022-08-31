@@ -17,6 +17,12 @@
     
     
     <div id="container" class="container">
+      <div id="mensagens">
+      ${msg}
+      </div>
+    
+    
+    
         <form name="formulario" id="idform" method="post" action="incluirproduto">
 			<fieldset>
 				<legend>Dados do Produto</legend>

@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
 public class Produto {
 
 	private Integer codigo;
-	private String categoria;
+	private Integer categoria;
 	private String nome;
 	private Boolean temLojaFisica;
 	private Integer quantidade;
@@ -19,7 +19,7 @@ public class Produto {
 
 	
 
-	public Produto(Integer codigo, String categoria, String nome, Boolean temLojaFisica, Integer quantidade,
+	public Produto(Integer codigo, Integer categoria, String nome, Boolean temLojaFisica, Integer quantidade,
 			Float preco, GregorianCalendar dataValidade, String descricao) {
 		super();
 		this.codigo = codigo;
@@ -36,7 +36,7 @@ public class Produto {
 
 
 
-	public Produto(String categoria, String nome, Boolean temLojaFisica, Integer quantidade, Float preco,
+	public Produto(Integer categoria, String nome, Boolean temLojaFisica, Integer quantidade, Float preco,
 			GregorianCalendar dataValidade, String descricao) {
 		super();
 		this.categoria = categoria;
@@ -58,11 +58,11 @@ public class Produto {
 		this.codigo = codigo;
 	}
 
-	public String getCategoria() {
+	public Integer getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(Integer categoria) {
 		this.categoria = categoria;
 	}
 

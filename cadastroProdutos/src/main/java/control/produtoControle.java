@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.Produto;
+import persistence.ProdutoDao;
 import persistence.UtilsBanco;
 
 
@@ -50,6 +51,9 @@ public class produtoControle extends HttpServlet {
 	}
     
     protected void incluir(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	try {
+    		
+    	
     	String nome = request.getParameter("nome");
 		String categoria = request.getParameter("categoria");
 		String lojafisica = request.getParameter("lojafisica");
@@ -70,14 +74,28 @@ public class produtoControle extends HttpServlet {
 		Produto p = new Produto();
 		p.setNome(nome);
 		p.setDataValidade(UtilsBanco.converterData(dataValidade));
-		p.setCategoria(categoria);
+		p.setCategoria(Integer.parseInt(categoria));
 		p.setPreco(Float.parseFloat(preco));
 		p.setQuantidade(Integer.parseInt(quantidade));
 		p.setTemLojaFisica(temLojaFisica);
 		p.setDescricao(descricao);
 	
 		
-		System.out.println(p);
+		ProdutoDao pd = new ProdutoDao();
+		
+		if(pd.incluirProdutoDB(p)) {
+			request.setAttribute("msg", "<div class='alert-success'>Produto cadastrado com sucesso! </div>");
+		} else {
+			request.setAttribute("msg", "<div class='alert-warning'>Erro ao cadastrar produto! </div>");
+		}
+		
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		request.setAttribute("msg", "<div class='alert-danger'>Erro ao cadastrar produto! </div>");
+    		
+    	} finally {
+    		request.getRequestDispatcher("produto.jsp").forward(request,response);
+    	}
 		
 		
 	
