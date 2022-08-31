@@ -11,12 +11,12 @@ public class ProdutoDao extends Dao{
 		
 		try {
 			open();
-			stmt = con.prepareStatement("insert into produto values(?,?,?,?,?,?,?)");
+			stmt = con.prepareStatement("insert into produto values(null,?,?,?,?,?,?,?)");
 			stmt.setString(1,p.getNome());
 			stmt.setInt(2,p.getCategoria());
 			stmt.setInt(3,p.getQuantidade());
 			stmt.setFloat(4,p.getPreco());
-			stmt.setBoolean(5,p.getTemLojaFisica());
+			stmt.setString(5,p.getTemLojaFisica());
 			stmt.setString(6,UtilsBanco.convertDateToDataBase(p.getDataValidade()));
 			stmt.setString(7,p.getDescricao());
 			

@@ -62,12 +62,6 @@ public class produtoControle extends HttpServlet {
 		String descricao = request.getParameter("descricao");
 		String dataValidade = request.getParameter("datavalidade");
 		
-		Boolean temLojaFisica;
-		if(lojafisica.equals("S")) {
-			temLojaFisica = true;
-		} else {
-			temLojaFisica = false;
-		}
 		
 		
 		
@@ -75,9 +69,9 @@ public class produtoControle extends HttpServlet {
 		p.setNome(nome);
 		p.setDataValidade(UtilsBanco.converterData(dataValidade));
 		p.setCategoria(Integer.parseInt(categoria));
-		p.setPreco(Float.parseFloat(preco));
+		p.setPreco(Float.parseFloat(preco.replace(',', '.')));
 		p.setQuantidade(Integer.parseInt(quantidade));
-		p.setTemLojaFisica(temLojaFisica);
+		p.setTemLojaFisica(lojafisica);
 		p.setDescricao(descricao);
 	
 		

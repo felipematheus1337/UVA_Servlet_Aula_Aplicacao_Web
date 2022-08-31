@@ -7,7 +7,7 @@ public class Produto {
 	private Integer codigo;
 	private Integer categoria;
 	private String nome;
-	private Boolean temLojaFisica;
+	private String temLojaFisica;
 	private Integer quantidade;
 	private Float preco;
 	GregorianCalendar dataValidade;
@@ -19,7 +19,7 @@ public class Produto {
 
 	
 
-	public Produto(Integer codigo, Integer categoria, String nome, Boolean temLojaFisica, Integer quantidade,
+	public Produto(Integer codigo, Integer categoria, String nome, String temLojaFisica, Integer quantidade,
 			Float preco, GregorianCalendar dataValidade, String descricao) {
 		super();
 		this.codigo = codigo;
@@ -36,7 +36,7 @@ public class Produto {
 
 
 
-	public Produto(Integer categoria, String nome, Boolean temLojaFisica, Integer quantidade, Float preco,
+	public Produto(Integer categoria, String nome, String temLojaFisica, Integer quantidade, Float preco,
 			GregorianCalendar dataValidade, String descricao) {
 		super();
 		this.categoria = categoria;
@@ -66,11 +66,11 @@ public class Produto {
 		this.categoria = categoria;
 	}
 
-	public Boolean getTemLojaFisica() {
+	public String getTemLojaFisica() {
 		return temLojaFisica;
 	}
 
-	public void setTemLojaFisica(Boolean temLojaFisica) {
+	public void setTemLojaFisica(String temLojaFisica) {
 		this.temLojaFisica = temLojaFisica;
 	}
 
