@@ -2,6 +2,7 @@ package control;
 
 import java.io.IOException;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,12 +46,35 @@ public class produtoControle extends HttpServlet {
 		String url = request.getServletPath();
 		if(url.equals("/incluirproduto")) {
 			incluir(request,response);
+		} else if (url.equals("/listarproduto")) {
+			listar(request,response);
 		}
 		System.out.println(url);
 	
 	}
     
-    protected void incluir(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void listar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Listar");
+		String nomePesquisa = request.getParameter("nome");
+		try {
+			ProdutoDao pd = new ProdutoDao();
+			List<Produto> listaProduto = pd.listarProdutos(nomePesquisa);
+			if(listaProduto.size() == 0) {
+				request.setAttribute("msg", "<div class='alert-warning'>Nenhum produto encontrado! </div>");
+			} else {
+				request.setAttribute("lp",listaProduto);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			request.getRequestDispatcher("listarprodutos.jsp").forward(request,response);
+		}
+		
+		
+	}
+
+	protected void incluir(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	try {
     		
     	
