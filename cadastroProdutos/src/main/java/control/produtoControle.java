@@ -46,7 +46,7 @@ public class produtoControle extends HttpServlet {
 		String url = request.getServletPath();
 		if(url.equals("/incluirproduto")) {
 			incluir(request,response);
-		} else if (url.equals("/listarproduto")) {
+		} else if (url.equals("/listarprodutos")) {
 			listar(request,response);
 		}
 		System.out.println(url);

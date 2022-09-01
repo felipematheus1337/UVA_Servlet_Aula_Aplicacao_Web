@@ -1,11 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="entity.Produto"%>
+
+
+<%
+ArrayList<Produto> lp = (ArrayList<Produto>) request.getAttribute("lp");
+%>
+
+
+
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>CADASTRAR PRODUTO</title>
+<title>LISTAR PRODUTO</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
@@ -41,14 +52,36 @@
 			<button class="btn btn-default" type="reset" id="btnlimpar">Limpar</button>
 
 		</form>
-		<table border="1">
-			<thead>
+
+		<br /> <br />
+
+		<table border="1" class="table table-striped">
+			<thead class="bg-primary">
 
 				<th>Codigo</th>
 				<th>Nome</th>
 				<th>Ações</th>
 
 			</thead>
+
+			<tbody>
+			
+				<%if (lp != null) {
+					for (Produto produto : lp) {%>
+				       <tr>
+
+					      <td><%= produto.getCodigo() %></td>
+					      <td><%= produto.getNome() %></td>
+                          <td>
+                           <img src="editar.png" style="float:left; margin:5px" width="40px"/>
+                           <img src="delete.png" style="float:left; margin:5px" width="40px"/>
+                          </td>
+				      </tr>
+				<%}
+				
+				}%>		
+
+			</tbody>
 		</table>
 	</div>
 
