@@ -1,14 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="entity.Produto"%>
-
-
-<%
-ArrayList<Produto> lp = (ArrayList<Produto>) request.getAttribute("lp");
-%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
 <!DOCTYPE html>
@@ -65,21 +58,18 @@ ArrayList<Produto> lp = (ArrayList<Produto>) request.getAttribute("lp");
 			</thead>
 
 			<tbody>
-			
-				<%if (lp != null) {
-					for (Produto produto : lp) {%>
-				       <tr>
 
-					      <td><%= produto.getCodigo() %></td>
-					      <td><%= produto.getNome() %></td>
-                          <td>
-                           <img src="editar.png" style="float:left; margin:5px" width="40px"/>
-                           <img src="delete.png" style="float:left; margin:5px" width="40px"/>
-                          </td>
-				      </tr>
-				<%}
-				
-				}%>		
+				<c:forEach var="produto" items="${lp}">
+					<tr>
+
+						<td>${produto.codigo}</td>
+						<td>${produto.nome}</td>
+						<td><img src="editar.png" style="float: left; margin: 5px"
+							width="40px" /> <img src="delete.png"
+							style="float: left; margin: 5px" width="40px" /></td>
+					</tr>
+				</c:forEach>
+
 
 			</tbody>
 		</table>
