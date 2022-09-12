@@ -15,7 +15,7 @@ import persistence.ProdutoDao;
 import persistence.UtilsBanco;
 
 
-@WebServlet({"/produtoControle","/incluirproduto","/alterarproduto","/listarprodutos","/consultarproduto","/excluirproduto"})
+@WebServlet({"/produtoControle","/incluirproduto","/alterarproduto","/listarprodutos","/listarprodutosajax","/consultarproduto","/excluirproduto"})
 public class produtoControle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -48,6 +48,9 @@ public class produtoControle extends HttpServlet {
 			incluir(request,response);
 		} else if (url.equals("/listarprodutos")) {
 			listar(request,response);
+		
+		}else if (url.equals("/listarprodutosajax")) {
+			listarajax(request,response);
 		}
 		System.out.println(url);
 	
@@ -117,6 +120,43 @@ public class produtoControle extends HttpServlet {
 		
 		
 	
+	}
+	
+	
+	protected void listarajax(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String nomePesquisa = request.getParameter("nome");
+		String lpstr = "";
+		try {
+			ProdutoDao pd = new ProdutoDao();
+			List<Produto> listaProduto = pd.listarProdutos(nomePesquisa);
+			if(listaProduto.size() == 0) {
+				lpstr = "<div class='alert-warning'>Nenhum produto encontrado! </div>";
+			} else {
+				
+				for(Produto p : listaProduto) {
+					lpstr +=
+							"<tr>"+
+					               "<td>"+p.getCodigo()+"</td>"+
+					               "<td>"+p.getNome()+"</td>"+
+					               "<td>"+
+					               "<img src='editar.png' style='float: left; margin: 5px'width='40px' />"+
+					               "<img src='delete.png' style='float: left; margin: 5px'width='40px' />"+
+									"</td>"+
+						     "</tr>";     
+					               
+				
+				}             
+				response.getWriter().println(lpstr);
+			}
+			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+		
+		
 	}
 
 }
