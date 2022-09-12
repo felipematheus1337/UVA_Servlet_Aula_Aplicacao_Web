@@ -66,7 +66,45 @@ public class ProdutoDao extends Dao{
 		
 		return listaProdutos;
 		
+	}
+	
+	
+	public Produto consultarProduto(Integer codigo) throws Exception {
+		Produto produto = null;
+		
+		try {
+			open();
+			stmt = con.prepareStatement("select * from produto where codigo = ?");
+			stmt.setInt(1,codigo);
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				produto = new Produto();
+				produto.setCodigo(rs.getInt("codigo"));
+				produto.setNome(rs.getString("nome"));
+				produto.setCategoria(rs.getInt("categoria"));
+				produto.setTemLojaFisica(rs.getString("loja_fisica"));
+				produto.setQuantidade(rs.getInt("quantidade"));
+				produto.setPreco(rs.getFloat("preco"));
+				produto.setDataValidade(UtilsBanco.converterData(rs.getString("data_validade")));
+				produto.setDescricao(rs.getString("descricao"));
+			}
+			
+		} catch(SQLException e) {
+			System.out.println(e.getErrorCode());
+			System.out.println(e.getMessage());
+			
+		}
+		finally {
+			close();
+		}
+		
+		
+		
+		return produto;
 		
 	}
+	
+	
 	
 }
