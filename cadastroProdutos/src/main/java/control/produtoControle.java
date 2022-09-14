@@ -49,9 +49,11 @@ public class produtoControle extends HttpServlet {
 		} else if (url.equals("/listarprodutos")) {
 			listar(request,response);
 		
-		}else if (url.equals("/listarprodutosajax")) {
+		} else if (url.equals("/listarprodutosajax")) {
 			listarajax(request,response);
-		}
+        } else if (url.equals("/consultarproduto")) {
+		consultar(request,response);
+	}
 		System.out.println(url);
 	
 	}
@@ -150,6 +152,34 @@ public class produtoControle extends HttpServlet {
 			}
 			
 			
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+		
+		
+	}
+	
+	
+	protected void consultar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		try {
+			Integer codigo = Integer.parseInt(request.getParameter("codigo"));
+			ProdutoDao pd = new ProdutoDao();
+			Produto produto = pd.consultarProduto(codigo);	
+			
+			if(produto == null) {
+				request.setAttribute("msg", "<div class='alert-warning'>Produto não encontrado! </div>");
+				request.getRequestDispatcher("listarprodutos.jsp").forward(request,response);
+			} else {
+				request.setAttribute("prod", produto);
+				request.setAttribute("op", "C");
+				request.getRequestDispatcher("produto.jsp").forward(request,response);
+
+				
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 			
