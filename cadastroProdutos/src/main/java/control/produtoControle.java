@@ -59,7 +59,12 @@ public class ProdutoControle extends HttpServlet {
 			consultar(request, response);
 		} else if (url.equals("/excluirproduto")) {
 			excluir(request, response);
-		}
+	    }  else if (url.equals("/alterarproduto")) {
+			alterar(request, response);
+		} 
+		
+		
+		
 		System.out.println(url);
 
 	}
@@ -193,6 +198,50 @@ public class ProdutoControle extends HttpServlet {
 
 		} finally {
 			response.getWriter().println(msg);
+		}
+
+	}
+	
+	protected void alterar(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		    Produto p = null;
+		try {
+            
+			String codigo = request.getParameter("codigo");
+			String nome = request.getParameter("nome");
+			String categoria = request.getParameter("categoria");
+			String lojafisica = request.getParameter("lojafisica");
+			String quantidade = request.getParameter("quantidade");
+			String preco = request.getParameter("preco");
+			String descricao = request.getParameter("descricao");
+			String dataValidade = request.getParameter("datavalidade");
+
+		    p = new Produto();
+			p.setCodigo(Integer.parseInt(codigo));
+			p.setNome(nome);
+			p.setDataValidade(UtilsBanco.converterData(dataValidade));
+			p.setCategoria(Integer.parseInt(categoria));
+			p.setPreco(Float.parseFloat(preco.replace(',', '.')));
+			p.setQuantidade(Integer.parseInt(quantidade));
+			p.setTemLojaFisica(lojafisica);
+			p.setDescricao(descricao);
+
+			ProdutoDao pd = new ProdutoDao();
+
+			if (pd.alterarProdutoDB(p)) {
+				request.setAttribute("msg", "<div class='alert-success'>Produto alterado com sucesso! </div>");
+			} else {
+				request.setAttribute("msg", "<div class='alert-warning'>Erro ao alterar produto! </div>");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("msg", "<div class='alert-danger'>Erro ao alterar produto! </div>");
+
+		} finally {
+			request.setAttribute("prod", p);
+			request.setAttribute("op", "C");
+			request.getRequestDispatcher("produto.jsp").forward(request, response);
 		}
 
 	}
