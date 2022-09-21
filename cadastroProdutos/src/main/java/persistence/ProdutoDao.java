@@ -106,5 +106,32 @@ public class ProdutoDao extends Dao{
 	}
 	
 	
+	public Boolean excluirProduto(Integer codigo) throws Exception {
+		Boolean result = false;
+		try {
+			open();
+			stmt = con.prepareStatement("delete from produto where codigo = ?");
+			stmt.setInt(1,codigo);
+			stmt.execute();
+			result = true;
+			
+		
+			
+		} catch(SQLException e) {
+			System.out.println(e.getErrorCode());
+			System.out.println(e.getMessage());
+			
+		}
+		finally {
+			close();
+		}
+		
+		
+		
+		return result;
+		
+	}
+	
+	
 	
 }

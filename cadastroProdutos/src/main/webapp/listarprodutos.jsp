@@ -19,19 +19,48 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-	
-	
-	<script>
-	 $(function(){
+
+
+<script>
+	$(function() {
 		$(".alterarproduto").click(function() {
 			var celula = $(this).parent("td");
 			var elementos = $(celula).siblings("td");
 			var codigo = elementos[0].innerText;
-			$(this).attr("href","consultarproduto?codigo="+codigo);
+			$(this).attr("href", "consultarproduto?codigo=" + codigo);
 		});
-	 });
-	</script>
-	
+
+		$(".excluirproduto").click(function() {
+
+			decisao = confirm("Confirmar a exclusão?");
+			if (!decisao) {
+				return false;
+			} else {
+				var celula = $(this).parent("td");
+				var elementos = $(celula).siblings("td");
+				var codigo = elementos[0].innerText;
+
+				$.ajax({
+					type : "GET",
+					url : "excluirproduto",
+					data : "codigo=" + codigo,
+					success : function(response) {
+						$("#mensagens").html(response);
+						
+					},
+					error : function(response) {
+						$("#mensagens").html(response);
+						return false;
+					}
+				});
+				$(this).parent().parent().remove();
+			}
+
+		});
+
+	});
+</script>
+
 </head>
 
 <body>
