@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 
 
 <!DOCTYPE html>
@@ -18,6 +19,19 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	
+	
+	<script>
+	 $(function(){
+		$(".alterarproduto").click(function() {
+			var celula = $(this).parent("td");
+			var elementos = $(celula).siblings("td");
+			var codigo = elementos[0].innerText;
+			$(this).attr("href","consultarproduto?codigo="+codigo);
+		});
+	 });
+	</script>
+	
 </head>
 
 <body>
@@ -64,9 +78,10 @@
 
 						<td>${produto.codigo}</td>
 						<td>${produto.nome}</td>
-						<td><img src="editar.png" style="float: left; margin: 5px"
-							width="40px" /> <img src="delete.png"
-							style="float: left; margin: 5px" width="40px" /></td>
+						<td><a class="alterarproduto" href="#"><img
+								src="editar.png" style="float: left; margin: 5px" width="40px" /></a>
+							<a class="excluirproduto" href="#"><img src="delete.png"
+								style="float: left; margin: 5px" width="40px" /></a></td>
 					</tr>
 				</c:forEach>
 

@@ -18,8 +18,12 @@ public class UtilsBanco {
 	
 	
 	public static String convertDateToDataBase(GregorianCalendar dtgc) {
-		SimpleDateFormat dt = new SimpleDateFormat("YYYY-MM-dd");
-		String dtFormatada =  dt.format(dtgc.getTime());
+		String dtFormatada = "";
+		if(dtgc != null) {
+			SimpleDateFormat dt = new SimpleDateFormat("YYYY-MM-dd");
+			dtFormatada =  dt.format(dtgc.getTime());
+		}
+		
 		return dtFormatada;
 		
 	}

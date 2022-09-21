@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<%@ page import="persistence.UtilsBanco" %>
     
 <!DOCTYPE html>
 <html>
@@ -34,16 +36,33 @@
 					<div class="form-group col-md-4">
 						<label>Nome do Produto:</label>
 						<input class="form-control" type="text" id="nome" name="nome"
-						placeholder="Mínimo de 10 e míximo 100 caracteres." required  />
+						placeholder="Mínimo de 10 e míximo 100 caracteres." required value="${prod.nome}"/>
 					</div>
 					<div class="form-group col-md-4">
 						<label>Categoria:</label>
 						<select id="categoria" name="categoria" class="form-control" required>
 							 <option value="">  </option>
-							 <option value="1">Eletrodomestico</option>
-							 <option value="2">Celular</option>
-							 <option value="3">Móvel</option>
-							 <option value="4">Outros</option>
+							 <option value="1"
+							 <c:if test="${prod.categoria eq 1}">
+								   selected
+								 </c:if>
+							 >Eletrodomestico</option>
+							 <option value="2" 
+							 <c:if test="${prod.categoria eq 2}">
+								   selected
+								 </c:if>
+							 >Celular</option>
+							 <option value="3"
+							 <c:if test="${prod.categoria eq 3}">
+								   selected
+								 </c:if>
+							 >Móvel</option>
+							 <option value="4"
+							 <c:if test="${prod.categoria eq 4}">
+								   selected
+								 </c:if>
+							 
+							 >Outros</option>
 						</select>
 					</div>
 
@@ -51,11 +70,19 @@
 						<label>Vende em loja física?:</label>
 						<div class="form-check">
 							<div class="form-check-inline">
-								<input class="form-check-input" type="radio" name="lojafisica" id="opsim" value="S" />
+								<input class="form-check-input" type="radio" name="lojafisica" id="opsim" value="S"
+								 <c:if test="${prod.temLojaFisica eq 'S'}">
+								   checked
+								 </c:if>
+								 >
 								<label class="form-check-label" for="opsim">Sim</label>
 							</div>
 							<div class="form-check-inline">
-								<input class="form-check-input" type="radio" name="lojafisica" id="opnao" value="N" />
+								<input class="form-check-input" type="radio" name="lojafisica" id="opnao" value="N"
+								<c:if test="${prod.temLojaFisica eq 'N'}">
+								   checked
+								 </c:if>
+								 >
 								<label class="form-check-label" for="opnao">Não</label>
 							</div>
 						</div>
@@ -66,16 +93,18 @@
 					<div class="form-group col-md-4">
 						<label>Quantidade:</label>
 						<input class="form-control" type="number" placeholder="99999"
-							   min="0" id="quantidade" name="quantidade" />
+							   min="0" id="quantidade" name="quantidade" value="${prod.quantidade}" />
 					</div>
 					<div class="form-group col-md-4">
 						<label>Preço:</label>
 						<input class="form-control" type="text" pattern="[0-9]+([,][0-9]{2})?" placeholder="99999,99"
-							   min="0" step="any" id="preco" name="preco" />
+							   min="0" step="any" id="preco" name="preco"
+							    value="${prod != null ? String.format('%.2f',prod.preco).replace('.',',') : ''}" />
 					</div>
 					<div class="form-group col-md-4">
 						<label>Data de Validade:</label>
-						<input class="form-control" type="date" class="data" id="datavalidade" name="datavalidade" />
+						<input class="form-control" type="date" class="data" id="datavalidade" name="datavalidade" 
+						value="${UtilsBanco.convertDateToDataBase(prod.dataValidade)}" />
 					</div>
 				</div>
 
@@ -83,7 +112,7 @@
 					<div class="form-group col-md-12">
 						<label for="descricao">Descrição:</label>
 						<textarea class="form-control" id="descricao" name="descricao" rows="5"  
-							placeholder="<Descreva detalhes do produto aqui>"></textarea>
+							placeholder="<Descreva detalhes do produto aqui>">${prod.descricao}</textarea>
 					</div>
 				</div>
 
